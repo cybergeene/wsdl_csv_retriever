@@ -23,10 +23,10 @@ public class WebServiceconfig extends WsConfigurerAdapter {
         return new ServletRegistrationBean(servlet, "/ws/*");
     }
 
-    @Bean(name = "countries")
+    @Bean(name = "findByNumber")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("CountiesPort");
+        wsdl11Definition.setPortTypeName("FindByNumberPort");
         wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://mednov.org/wsdl_csv/web-service");
         wsdl11Definition.setSchema(countriesSchema);
@@ -35,7 +35,7 @@ public class WebServiceconfig extends WsConfigurerAdapter {
 
     @Bean
     public XsdSchema countriesSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("countries.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("findByNumber.xsd"));
     }
 
 }
