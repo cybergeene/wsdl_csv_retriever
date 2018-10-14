@@ -1,7 +1,6 @@
 package org.mednov.wsdl_csv.repository;
 
 import org.mednov.wsdl_csv.web_service.Country;
-import org.mednov.wsdl_csv.web_service.Currency;
 import org.mednov.wsdl_csv.web_service.FilesFound;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -15,25 +14,23 @@ import java.util.Map;
 @Component
 public class CountryRepository {
     private static final Map<String, Country> countries = new HashMap<>();
+    private Country country;
+
 
     @PostConstruct
     public void initData() {
 
         List<String> files = Arrays.asList("2.csv", "5.csv", "7.csv");
         Country spain = new Country();
-        spain.setName("Spain");
-        spain.setCapital("Madrid");
-        spain.setCurrency(Currency.EUR);
-        spain.setPopulation(46_704_314);
+        spain.setCode("00.Result.OK");
         FilesFound filesFound = new FilesFound();
         filesFound.setFileFound(files);
-        spain.setFiles(filesFound);
+        spain.setFileNames(filesFound);
+        spain.setError("");
 
+        country = spain;
 
-
-
-
-
+/*
         countries.put(spain.getName(), spain);
 
         Country poland = new Country();
@@ -52,11 +49,12 @@ public class CountryRepository {
         uk.setPopulation(63_705_000);
 //        uk.setFiles(files1);
 
-        countries.put(uk.getName(), uk);
+        countries.put(uk.getName(), uk);*/
     }
 
     public Country findCountry(String name) {
         Assert.notNull(name, "The country's name must not be null");
-        return countries.get(name);
+//        return countries.get(name);
+        return country;
     }
 }
