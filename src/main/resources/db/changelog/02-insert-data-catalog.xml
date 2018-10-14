@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="02" author="e.mednov">
+        <comment>Inserting Catalog</comment>
+        <insert tableName="catalog">
+            <column name="id" valueNumeric="1"/>
+            <column name="code" value="00.Result.OK"/>
+        </insert>
+        <insert tableName="authors">
+            <column name="id" valueNumeric="2"/>
+            <column name="code" value="01.Result.NotFound"/>
+        </insert>
+        <insert tableName="authors">
+            <column name="id" valueNumeric="3"/>
+            <column name="code" value="02.Result.Error"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
