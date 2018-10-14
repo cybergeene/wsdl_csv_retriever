@@ -12,11 +12,11 @@
             <column name="id" valueNumeric="1"/>
             <column name="code" value="00.Result.OK"/>
         </insert>
-        <insert tableName="authors">
+        <insert tableName="catalog">
             <column name="id" valueNumeric="2"/>
             <column name="code" value="01.Result.NotFound"/>
         </insert>
-        <insert tableName="authors">
+        <insert tableName="catalog">
             <column name="id" valueNumeric="3"/>
             <column name="code" value="02.Result.Error"/>
         </insert>

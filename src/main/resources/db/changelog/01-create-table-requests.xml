@@ -32,8 +32,8 @@
             </column>
         </createTable>
 
-        <addForeignKeyConstraint baseTableName="catalog" baseColumnNames="id"
-                                 constraintName="requests_fk"
-                                 referencedTableName="requests" referencedColumnNames="code_id"/>
+        <addForeignKeyConstraint baseTableName="requests" baseColumnNames="code_id"
+                                 constraintName="catalog_requests_fk"
+                                 referencedTableName="catalog" referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>
