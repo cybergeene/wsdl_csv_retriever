@@ -1,7 +1,9 @@
-package org.mednov.wsdl_csv.web_service;
+package org.mednov.wsdl_csv.endpoint;
 
 
-import org.mednov.wsdl_csv.CountryRepository;
+import org.mednov.wsdl_csv.repository.CountryRepository;
+import org.mednov.wsdl_csv.web_service.GetCountryRequest;
+import org.mednov.wsdl_csv.web_service.GetCountryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
