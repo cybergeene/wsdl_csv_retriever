@@ -79,7 +79,8 @@
                     <propertyFile>src/main/resources/application.properties</propertyFile>
                     <changeLogFile>src/main/resources/db/liquibase-changelog.xml</changeLogFile>
                     <driver>org.h2.Driver</driver>
-                    <url>jdbc:h2:mem:default</url>
+                    <!--<url>jdbc:h2:mem:default</url>-->
+                    <url>jdbc:h2:file:./data/sample</url>
                     <!--<username>${db-connection-username}</username>-->
                     <!--<password>${db-connection-password}</password>-->
                 </configuration>
