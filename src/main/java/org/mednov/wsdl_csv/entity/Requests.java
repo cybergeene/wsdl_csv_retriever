@@ -6,11 +6,11 @@ import javax.persistence.*;
 public class Requests {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "CODE_ID", nullable = false)
+    @JoinColumn(name = "CODE_ID")
     private Catalog catalog;
 
     private int number;

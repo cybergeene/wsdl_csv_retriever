@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Catalog {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String code;
