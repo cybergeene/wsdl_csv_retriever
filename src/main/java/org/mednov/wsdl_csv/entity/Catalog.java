@@ -3,10 +3,11 @@ package org.mednov.wsdl_csv.entity;
 import javax.persistence.*;
 import java.util.List;
 
+@Table(name = "CATALOG")
 @Entity
 public class Catalog {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String code;

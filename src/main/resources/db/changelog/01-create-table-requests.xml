@@ -10,7 +10,8 @@
         <createTable tableName="requests"
                      remarks="Table for wsdl's requests logs">
             <column name="id" type="int" autoIncrement="true">
-                <constraints nullable="false" unique="true" primaryKey="true" />
+                <constraints nullable="false" unique="true"
+                             uniqueConstraintName="requests_id_uindex" primaryKey="true" />
             </column>
             <column name="code_id" type="int">
                 <constraints nullable="false"/>
@@ -18,10 +19,19 @@
             <column name="number" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="filenames" type="varchar(100)"/>
+            <column name="file_names" type="varchar(100)"/>
             <column name="error" type="varchar(100)"/>
         </createTable>
+        <!--<createSequence-->
+                <!--catalogName="requests"-->
+                <!--startValue="2"-->
+                <!--ordered="true"-->
+                <!--schemaName="public"-->
+                <!--sequenceName="requests_id_uindex" />-->
+        <!--<addAutoIncrement tableName="requests" columnName="id"/>-->
+    </changeSet>
 
+    <changeSet id="04" author="e.mednov">
         <createTable tableName="catalog"
                      remarks="A table for catalog">
             <column name="id" type="int" autoIncrement="true">

@@ -42,7 +42,7 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>runtime</scope>
+            <!--<scope>runtime</scope>-->
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -81,8 +81,8 @@
                     <driver>org.h2.Driver</driver>
                     <!--<url>jdbc:h2:mem:default</url>-->
                     <url>jdbc:h2:file:./data/sample</url>
-                    <!--<username>${db-connection-username}</username>-->
-                    <!--<password>${db-connection-password}</password>-->
+                    <username>sa</username>
+                    <password>1</password>
                 </configuration>
                 <executions>
                     <execution>

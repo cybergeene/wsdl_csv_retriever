@@ -2,11 +2,12 @@ package org.mednov.wsdl_csv.entity;
 
 import javax.persistence.*;
 
+@Table(name = "REQUESTS")
 @Entity
 public class Requests {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne

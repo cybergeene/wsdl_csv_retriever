@@ -12,7 +12,7 @@
             <column name="id" valueNumeric="1"/>
             <column name="code_id" valueNumeric="1"/>
             <column name="number" valueNumeric="1"/>
-            <column name="filenames" value="2.csv, 3.csv, 7.csv"/>
+            <column name="file_names" value="2.csv, 3.csv, 7.csv"/>
             <column name="error" value=""/>
         </insert>
     </changeSet>
