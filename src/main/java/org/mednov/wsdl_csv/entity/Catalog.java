@@ -3,6 +3,7 @@ package org.mednov.wsdl_csv.entity;
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Catalog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
