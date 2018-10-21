@@ -1,11 +1,12 @@
 package org.mednov.wsdl_csv;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mednov.wsdl_csv.entity.Catalog;
+import org.mednov.wsdl_csv.entity.Csv;
 import org.mednov.wsdl_csv.entity.Requests;
 import org.mednov.wsdl_csv.repository.CatalogRepository;
+import org.mednov.wsdl_csv.repository.CsvRepository;
 import org.mednov.wsdl_csv.repository.RequestsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,10 @@ public class WsdlCsvApplicationTests {
 
     @Autowired
     CatalogRepository catalogRepository;
+
+    @Autowired
+    CsvRepository csvRepository;
+
 
     @Test
     public void contextLoads() {
@@ -60,6 +65,36 @@ public class WsdlCsvApplicationTests {
         request.setCatalog(catalog.orElse(null));
         requestsRepository.save(request);
 
+    }
+
+    @Test
+    public void writeCsvFileNames() {
+        String filename = "1.csv";
+        Csv csv = new Csv();
+        csv.setId(20);
+        csv.setFileName(filename);
+        csvRepository.save(csv);
+        Csv csv1 = new Csv();
+        csv1.setId(30);
+        csv1.setFileName(filename);
+        csvRepository.save(csv1);
+        Csv csv2 = new Csv();
+        csv2.setId(20);
+        csv2.setFileName(filename);
+        csvRepository.save(csv2);
+        csv.setId(30);
+        csv.setFileName("2.csv");
+        csvRepository.save(csv);
+    }
+
+    @Test
+    public void findByNamberTest(){
+        List<Csv> csvs = csvRepository.findAllById(30).orElse(null);
+        List<Csv> csvs1 = csvRepository.findAllById(20).orElse(null);
+
+        String fileNames = csvs.stream()
+                .map(Csv::getFileName)
+                .reduce((s1, s2) -> s1 + ", " + s2).orElse("");
     }
 
     @Test
