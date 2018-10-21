@@ -89,6 +89,12 @@ public class WsdlCsvApplicationTests {
     }
 
     @Test
+    public void findByNamberTest(){
+        List<Csv> csvs = csvRepository.findAllById(30).orElse(null);
+        List<Csv> csvs1 = csvRepository.findAllById(20).orElse(null);
+    }
+
+    @Test
     public void loggerTest() {
         logger.info("*************** a message");
     }
