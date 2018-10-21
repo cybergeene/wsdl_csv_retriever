@@ -66,15 +66,16 @@ public class FindByNumberController implements FindByNumber{
             saveToDB(number, catalogError, "", error);
         }else{
             if(completableFuture.isDone()){
-                List<Csv> csvs = csvRepository.findAllById(30).orElse(null);
-                String fileNames = csvs.stream()
-                        .map(Csv::getFileName)
-                        .reduce((s1, s2) -> s1 + ", " + s2).orElse(null);
-                if(fileNames == null){
+                List<Csv> csvs = csvRepository.findAllById(number).orElse(null);
+
+                if(csvs == null){
                     searchResult.setCode(catalogNotFound.getCode());
                     searchResult.setError("");
                     saveToDB(number, catalogNotFound, "", "");
                 }else{
+                    String fileNames = csvs.stream()
+                            .map(Csv::getFileName)
+                            .reduce((s1, s2) -> s1 + ", " + s2).orElse(null);
                     searchResult.setCode(catalogOk.getCode());
                     searchResult.setError("");
                     saveToDB(number, catalogOk, fileNames, "");

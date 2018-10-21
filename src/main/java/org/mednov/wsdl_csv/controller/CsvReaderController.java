@@ -54,9 +54,9 @@ public class CsvReaderController implements CvsReader {
         CsvParserSettings settings = new CsvParserSettings();
         settings.getFormat().setLineSeparator("\n");
         CsvParser parser = new CsvParser(settings);
+        int fileCnt = 0;
         for (File file :
                 files) {
-            int fileCnt = 0;
             fileCnt++;
             String fileName = file.getName();
             status = "Start parsing " + fileName;
@@ -66,12 +66,12 @@ public class CsvReaderController implements CvsReader {
 //          allRows = parser.parseAll(new InputStreamReader(new FileInputStream(file)));
             parser.beginParsing(file);//parseAll(new InputStreamReader(new FileInputStream(file)));
             String[] row;
+            status = "Parsing rows in file " + fileName
+                    + " ( " + fileCnt + " of " + files.size() + " )";
             while ((row = parser.parseNext()) != null) {
                 List<Csv> csvs = new ArrayList<>();
                 for (int i = 0; i < row.length; i++) {
                     Integer number = Integer.parseInt(row[i]);
-                    status = "Parsing rows in file " + fileName
-                            + " ( " + fileCnt + " of " + files.size() + " )";
                     Csv csvEntity = new Csv();
                     csvEntity.setId(number);
                     csvEntity.setFileName(fileName);
@@ -80,7 +80,9 @@ public class CsvReaderController implements CvsReader {
                 csvRepository.saveAll(csvs);
             }
         }
-
+        status = "All Done";
+        logger.info(status);
+        future.complete(true);
         return future;
     }
 
