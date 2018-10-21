@@ -1,23 +1,16 @@
-package org.mednov.wsdl_csv.repository;
+package org.mednov.wsdl_csv.controller;
 
 import org.mednov.wsdl_csv.controller.CvsReader;
-import org.mednov.wsdl_csv.web_service.FilesFound;
 import org.mednov.wsdl_csv.web_service.SearchResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
+import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-@Component
-public class FindByNumberRepository {
-    boolean runned;
+@Controller
+public class FindByNumberController implements FindByNumber{
     CompletableFuture<Boolean> completableFuture;
 
     @Autowired

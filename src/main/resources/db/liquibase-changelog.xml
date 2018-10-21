@@ -9,4 +9,5 @@
     <include file="changelog/01-create-table-requests.xml" relativeToChangelogFile="true"/>
     <include file="changelog/02-insert-data-catalog.xml" relativeToChangelogFile="true"/>
     <include file="changelog/02-insert-test-data-requests.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/03-create-tables-for-csv.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
