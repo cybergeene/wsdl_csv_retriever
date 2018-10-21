@@ -4,7 +4,7 @@
 CREATE TABLE csv
 (
   id int NOT NULL,
-  file_name varchar(100) NOT NULL,
+  file_name varchar(40) NOT NULL,
   CONSTRAINT Csv_pk PRIMARY KEY (id, file_name)
 );
 

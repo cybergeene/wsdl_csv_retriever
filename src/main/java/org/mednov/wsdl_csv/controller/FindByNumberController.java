@@ -7,6 +7,7 @@ import org.mednov.wsdl_csv.entity.Requests;
 import org.mednov.wsdl_csv.repository.CatalogRepository;
 import org.mednov.wsdl_csv.repository.CsvRepository;
 import org.mednov.wsdl_csv.repository.RequestsRepository;
+import org.mednov.wsdl_csv.web_service.FilesFound;
 import org.mednov.wsdl_csv.web_service.SearchResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Controller
 public class FindByNumberController implements FindByNumber{
@@ -76,7 +78,13 @@ public class FindByNumberController implements FindByNumber{
                     String fileNames = csvs.stream()
                             .map(Csv::getFileName)
                             .reduce((s1, s2) -> s1 + ", " + s2).orElse(null);
+                    List<String> filenNamesList = csvs.stream()
+                            .map(Csv::getFileName)
+                            .collect(Collectors.toList());
                     searchResult.setCode(catalogOk.getCode());
+                    FilesFound filesFound = new FilesFound();
+                    filesFound.setFileFound(filenNamesList);
+                    searchResult.setFileNames(filesFound);
                     searchResult.setError("");
                     saveToDB(number, catalogOk, fileNames, "");
                 }

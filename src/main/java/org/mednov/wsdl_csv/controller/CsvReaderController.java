@@ -21,6 +21,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.Comparator.comparing;
+
 @Controller
 public class CsvReaderController implements CvsReader {
 
@@ -40,11 +42,12 @@ public class CsvReaderController implements CvsReader {
 
         CompletableFuture<Boolean> future = new CompletableFuture<>();
 
-        List<File> files = null;
+        List<File> files = new ArrayList<>();
         try (Stream<Path> paths = Files.walk(Paths.get(csvFiles))) {
             files = paths
                     .filter(Files::isRegularFile)
                     .map(Path::toFile)
+                    .sorted(comparing(File::getName))
                     .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
