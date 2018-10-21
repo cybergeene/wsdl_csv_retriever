@@ -1,12 +1,19 @@
 package org.mednov.wsdl_csv.controller;
 
 import org.mednov.wsdl_csv.controller.CvsReader;
+import org.mednov.wsdl_csv.entity.Catalog;
+import org.mednov.wsdl_csv.entity.Csv;
+import org.mednov.wsdl_csv.entity.Requests;
+import org.mednov.wsdl_csv.repository.CatalogRepository;
+import org.mednov.wsdl_csv.repository.CsvRepository;
+import org.mednov.wsdl_csv.repository.RequestsRepository;
 import org.mednov.wsdl_csv.web_service.SearchResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Controller
@@ -16,6 +23,15 @@ public class FindByNumberController implements FindByNumber{
     @Autowired
     CvsReader cvsReader;
 
+    @Autowired
+    CsvRepository csvRepository;
+
+    @Autowired
+    CatalogRepository catalogRepository;
+
+    @Autowired
+    RequestsRepository requestsRepository;
+
     @PostConstruct
     public void initData() {
 
@@ -24,23 +40,68 @@ public class FindByNumberController implements FindByNumber{
     public SearchResult findByNumber(String name) {
         SearchResult searchResult = new SearchResult();
 
+        Catalog catalogOk = catalogRepository.findById(1).orElse(null);
+        Catalog catalogNotFound = catalogRepository.findById(2).orElse(null);
+        Catalog catalogError = catalogRepository.findById(3).orElse(null);
+        String error = "";
+
+        try {
+            int number = Integer.parseInt(name);
+
+        }
+        catch(NumberFormatException e){
+            error = "Number to find should be integer value";
+            searchResult.setCode(catalogError.getCode());
+            searchResult.setError(error);
+            saveToDB(0, catalogError, "", error);
+            return searchResult;
+        }
+        int number = Integer.parseInt(name);
+
         if(completableFuture==null) {
             completableFuture = cvsReader.load();
-            searchResult.setCode("loading started");
-            searchResult.setError("Please wait");
+            error = "Parsing from csv started, please wait";
+            searchResult.setCode(catalogError.getCode());
+            searchResult.setError(error);
+            saveToDB(number, catalogError, "", error);
         }else{
             if(completableFuture.isDone()){
-                searchResult.setCode("done");
-                searchResult.setError("");
+                List<Csv> csvs = csvRepository.findAllById(30).orElse(null);
+                String fileNames = csvs.stream()
+                        .map(Csv::getFileName)
+                        .reduce((s1, s2) -> s1 + ", " + s2).orElse(null);
+                if(fileNames == null){
+                    searchResult.setCode(catalogNotFound.getCode());
+                    searchResult.setError("");
+                    saveToDB(number, catalogNotFound, "", "");
+                }else{
+                    searchResult.setCode(catalogOk.getCode());
+                    searchResult.setError("");
+                    saveToDB(number, catalogOk, fileNames, "");
+                }
             }else if(completableFuture.isCompletedExceptionally()){
-                searchResult.setCode("error");
-                searchResult.setError("load from csv failed");
+                error = "Load from csv failed. Error sended to system administrator";
+                searchResult.setCode(catalogError.getCode());
+                searchResult.setError("Load from csv failed.");
+                saveToDB(0, catalogError, "", error);
             }else{
-                searchResult.setCode("loading...");
-                searchResult.setError("Data is preparing. Try again later");
+                error = cvsReader.getStatus();
+                searchResult.setCode(catalogError.getCode());
+                searchResult.setError(error);
+                saveToDB(0, catalogError, "", error);
             }
         }
 
         return searchResult;
+    }
+
+    @Override
+    public void saveToDB(int number, Catalog catalog, String fileNames, String error) {
+        Requests request = new Requests();
+        request.setNumber(number);
+        request.setCatalog(catalog);
+        request.setError(error);
+        request.setFileNames(fileNames);
+        requestsRepository.save(request);
     }
 }

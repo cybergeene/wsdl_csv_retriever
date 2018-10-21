@@ -69,7 +69,6 @@ public class WsdlCsvApplicationTests {
 
     @Test
     public void writeCsvFileNames() {
-
         String filename = "1.csv";
         Csv csv = new Csv();
         csv.setId(20);
@@ -92,6 +91,10 @@ public class WsdlCsvApplicationTests {
     public void findByNamberTest(){
         List<Csv> csvs = csvRepository.findAllById(30).orElse(null);
         List<Csv> csvs1 = csvRepository.findAllById(20).orElse(null);
+
+        String fileNames = csvs.stream()
+                .map(Csv::getFileName)
+                .reduce((s1, s2) -> s1 + ", " + s2).orElse("");
     }
 
     @Test
