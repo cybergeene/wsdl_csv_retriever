@@ -87,6 +87,7 @@ public class FindByNumberController implements FindByNumber{
                     searchResult.setFileNames(filesFound);
                     searchResult.setError("");
                     saveToDB(number, catalogOk, fileNames, "");
+
                 }
             }else if(completableFuture.isCompletedExceptionally()){
                 error = "Load from csv failed. Error sended to system administrator";
